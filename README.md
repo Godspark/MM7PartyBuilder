@@ -7,7 +7,7 @@ In other words, if one wants a party able to achieve at least the following skil
 - Spear (Master)
 - Body Magic (Grandmaster)
 - Alchemy (Grandmaster)
-The program would list the following two party combinations, (which are the only two combinations fulfilling the requirements):
+The program will list the following two party combinations, (the only combinations fulfilling the requirements):
 - Knight, Cleric, Druid, Sorcerer
 - Archer, Cleric, Druid, Sorcerer
 
