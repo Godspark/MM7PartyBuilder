@@ -3,6 +3,7 @@ using MM7ClassCreatorWPF.BaseClasses;
 using System.Collections.ObjectModel;
 using System.Linq;
 using MM7ClassCreatorWPF.Models;
+using System.Collections.Generic;
 
 namespace MM7ClassCreatorWPF
 {
@@ -12,7 +13,8 @@ namespace MM7ClassCreatorWPF
         public ObservableCollection<CharacterClass> AllClasses { get; set; }
         public ObservableCollection<MasteryLevel> AllMasteryLevels { get; set; }
         public ObservableCollection<CharacterSkill> AllSkills { get; set; }
-        
+        public ObservableCollection<NumberOfCharacters> AllNumberOfCharacters { get; set; }
+
         private ObservableCollection<FilterItem> _selectedFilterItems;
         public ObservableCollection<FilterItem> SelectedFilterItems
         {
@@ -58,6 +60,7 @@ namespace MM7ClassCreatorWPF
             AllClasses = new ObservableCollection<CharacterClass>(Enum.GetValues(typeof(CharacterClass)).Cast<CharacterClass>());
             AllMasteryLevels = new ObservableCollection<MasteryLevel>(Enum.GetValues(typeof(MasteryLevel)).Cast<MasteryLevel>());
             AllSkills = new ObservableCollection<CharacterSkill>(Enum.GetValues(typeof(CharacterSkill)).Cast<CharacterSkill>());
+            AllNumberOfCharacters = new ObservableCollection<NumberOfCharacters>(Enum.GetValues(typeof(NumberOfCharacters)).Cast<NumberOfCharacters>());
 
             SelectedFilterItems = new ObservableCollection<FilterItem>();
             ClassSuggestions = new ObservableCollection<ClassSuggestion>();
@@ -73,7 +76,8 @@ namespace MM7ClassCreatorWPF
             SelectedFilterItems.Add(new FilterItem
             {
                 Skill = CharacterSkill.MagicAir,
-                Mastery = MasteryLevel.None
+                Mastery = MasteryLevel.None,
+                NumberOfCharacters = NumberOfCharacters.AtLeast1
             });
         }
 

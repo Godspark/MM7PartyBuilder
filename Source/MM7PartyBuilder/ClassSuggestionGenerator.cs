@@ -23,8 +23,34 @@ namespace MM7ClassCreatorWPF
             foreach (var filter in searchFilters)
             {
                 var classesNeeded = ClassesMeetFilter(filter);
-                availableClassesBasedOnFilter.Add(filter, ClassesMeetFilter(filter));
-                _resultingClassSuggestions = _resultingClassSuggestions.Where(p => p.ClassSuggestions.Any(q => classesNeeded.ClassSuggestions.Contains(q))).ToList();
+                availableClassesBasedOnFilter.Add(filter, classesNeeded);
+                switch(filter.NumberOfCharacters)
+                {
+                    case NumberOfCharacters.None:
+                        _resultingClassSuggestions = _resultingClassSuggestions.Where(p => !p.ClassSuggestions.Any(q => classesNeeded.ClassSuggestions.Contains(q))).ToList();
+                        break;
+                    case NumberOfCharacters.AtLeast1:
+                        _resultingClassSuggestions = _resultingClassSuggestions.Where(p => p.ClassSuggestions.Any(q => classesNeeded.ClassSuggestions.Contains(q))).ToList();
+                        break;
+                    case NumberOfCharacters.AtLeast2:
+                        _resultingClassSuggestions = _resultingClassSuggestions.Where(p => p.ClassSuggestions.Count(q => classesNeeded.ClassSuggestions.Contains(q)) >= 2).ToList();
+                        break;
+                    case NumberOfCharacters.AtLeast3:
+                        _resultingClassSuggestions = _resultingClassSuggestions.Where(p => p.ClassSuggestions.Count(q => classesNeeded.ClassSuggestions.Contains(q)) >= 3).ToList();
+                        break;
+                    case NumberOfCharacters.Exactly1:
+                        _resultingClassSuggestions = _resultingClassSuggestions.Where(p => p.ClassSuggestions.Count(q => classesNeeded.ClassSuggestions.Contains(q)) == 1).ToList();
+                        break;
+                    case NumberOfCharacters.Exactly2:
+                        _resultingClassSuggestions = _resultingClassSuggestions.Where(p => p.ClassSuggestions.Count(q => classesNeeded.ClassSuggestions.Contains(q)) == 2).ToList();
+                        break;
+                    case NumberOfCharacters.Exactly3:
+                        _resultingClassSuggestions = _resultingClassSuggestions.Where(p => p.ClassSuggestions.Count(q => classesNeeded.ClassSuggestions.Contains(q)) == 3).ToList();
+                        break;
+                    case NumberOfCharacters.All:
+                        _resultingClassSuggestions = _resultingClassSuggestions.Where(p => p.ClassSuggestions.All(q => classesNeeded.ClassSuggestions.Contains(q))).ToList();
+                        break;
+                }
             }
 
             return _resultingClassSuggestions;

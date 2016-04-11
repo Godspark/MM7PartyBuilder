@@ -15,25 +15,35 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="AUTO" />
+                <ColumnDefinition Width="500" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="AUTO" />
+                <RowDefinition Height="AUTO" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.ColumnSpan="2">
-                <Button Content="Generate Classes" Command="{Binding GenerateClassesCommand}" Margin="10" />
-                <Button Content="Add Filter" Command="{Binding AddFilterCommand}" Margin="10" />
+
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="10,10,0,40" >
+                <Button Content="Generate Classes" Command="{Binding GenerateClassesCommand}" />
+                <Button Content="Add Filter" Command="{Binding AddFilterCommand}" Margin="10,0,0,0" />
             </StackPanel>
 
-            <ItemsControl ItemsSource="{Binding SelectedFilterItems}" Grid.Row="1">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,10">
+                <TextBlock Text="Filter Type" Margin="70,0,0,0" Width="90" />
+                <TextBlock Text="Min. Skill Mastery" Margin="5,0,0,0" Width="100" />
+                <TextBlock Text="Skill Name" Margin="5,0,0,0" Width="130" />
+                <TextBlock Text="Party Suggestions" Margin="100,0,0,0" Width="100" />
+            </StackPanel>
+            
+            
+            <ItemsControl ItemsSource="{Binding SelectedFilterItems}" Grid.Row="2">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,5">
-                            <Button Content="Remove" Command="{Binding DataContext.RemoveFilterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"  CommandParameter="{Binding Path=.}" Margin="0,0,5,0" ></Button>
-                            <ComboBox ItemsSource="{Binding DataContext.AllSkills, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" SelectedItem="{Binding Skill}" Margin="0,0,5,0" Width="150">
+                            <Button Content="Remove" Command="{Binding DataContext.RemoveFilterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"  CommandParameter="{Binding Path=.}" Margin="0,0,10,0" Width="50" ></Button>
+
+                            <ComboBox ItemsSource="{Binding DataContext.AllNumberOfCharacters, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" SelectedItem="{Binding NumberOfCharacters}" Margin="0,0,5,0" Width="90" >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Converter={StaticResource EnumToDescriptionConverter}}"/>
@@ -41,7 +51,15 @@
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
 
-                            <ComboBox ItemsSource="{Binding DataContext.AllMasteryLevels, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" SelectedItem="{Binding Mastery}"  Margin="0" Width="150">
+                            <ComboBox ItemsSource="{Binding DataContext.AllMasteryLevels, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" SelectedItem="{Binding Mastery}"  Margin="0,0,5,0" Width="100">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource EnumToDescriptionConverter}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                            
+                            <ComboBox ItemsSource="{Binding DataContext.AllSkills, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" SelectedItem="{Binding Skill}" Margin="0,0,5,0" Width="130">
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Converter={StaticResource EnumToDescriptionConverter}}"/>
@@ -53,7 +71,7 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <ItemsControl ItemsSource="{Binding ClassSuggestions}" Grid.Column="1" Grid.Row="1" >
+            <ItemsControl ItemsSource="{Binding ClassSuggestions}" Grid.Column="1" Grid.Row="2" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
