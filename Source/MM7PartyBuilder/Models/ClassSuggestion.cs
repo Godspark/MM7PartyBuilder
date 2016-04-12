@@ -7,39 +7,39 @@ namespace MM7ClassCreatorWPF.Models
     public class ClassSuggestion : IEquatable<ClassSuggestion>
     {
         private List<CharacterClass> _classSuggestions;
-        public List<CharacterClass> ClassSuggestions
+        public List<CharacterClass> CharacterClasses
         {
             get { return _classSuggestions; }
             private set { _classSuggestions = value; }
         }
-
+        
         public ClassSuggestion()
         {
-            ClassSuggestions = new List<CharacterClass>();
+            CharacterClasses = new List<CharacterClass>();
         }
 
         public ClassSuggestion(List<CharacterClass> classes)
         {
-            ClassSuggestions = classes;
+            CharacterClasses = classes;
         }
 
 
         public void Add(CharacterClass cClass)
         {
-            ClassSuggestions.Add(cClass);
+            CharacterClasses.Add(cClass);
         }
 
         public void Order()
         {
-            ClassSuggestions = ClassSuggestions.OrderBy(p => p).ToList();
+            CharacterClasses = CharacterClasses.OrderBy(p => p).ToList();
         }
 
         public bool Equals(ClassSuggestion other)
         {
-            ClassSuggestions = ClassSuggestions.OrderBy(p => p).ToList();
-            other.ClassSuggestions = other.ClassSuggestions.OrderBy(p => p).ToList();
+            CharacterClasses = CharacterClasses.OrderBy(p => p).ToList();
+            other.CharacterClasses = other.CharacterClasses.OrderBy(p => p).ToList();
 
-            if (Enumerable.SequenceEqual(ClassSuggestions, other.ClassSuggestions))
+            if (Enumerable.SequenceEqual(CharacterClasses, other.CharacterClasses))
             {
                 return true;
             }
@@ -48,7 +48,7 @@ namespace MM7ClassCreatorWPF.Models
         }
         public override int GetHashCode()
         {
-            var code = (int)ClassSuggestions[0] * (int)ClassSuggestions[1] * (int)ClassSuggestions[2] * (int)ClassSuggestions[3];
+            var code = (int)CharacterClasses[0] * (int)CharacterClasses[1] * (int)CharacterClasses[2] * (int)CharacterClasses[3];
             return code;
         }
 

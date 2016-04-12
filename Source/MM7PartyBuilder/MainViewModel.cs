@@ -14,6 +14,7 @@ namespace MM7ClassCreatorWPF
         public ObservableCollection<MasteryLevel> AllMasteryLevels { get; set; }
         public ObservableCollection<CharacterSkill> AllSkills { get; set; }
         public ObservableCollection<NumberOfCharacters> AllNumberOfCharacters { get; set; }
+        public ObservableCollection<AndOr> AllAndOr { get; set; }
 
         private ObservableCollection<FilterItem> _selectedFilterItems;
         public ObservableCollection<FilterItem> SelectedFilterItems
@@ -61,6 +62,7 @@ namespace MM7ClassCreatorWPF
             AllMasteryLevels = new ObservableCollection<MasteryLevel>(Enum.GetValues(typeof(MasteryLevel)).Cast<MasteryLevel>());
             AllSkills = new ObservableCollection<CharacterSkill>(Enum.GetValues(typeof(CharacterSkill)).Cast<CharacterSkill>());
             AllNumberOfCharacters = new ObservableCollection<NumberOfCharacters>(Enum.GetValues(typeof(NumberOfCharacters)).Cast<NumberOfCharacters>());
+            AllAndOr = new ObservableCollection<AndOr>(Enum.GetValues(typeof(AndOr)).Cast<AndOr>());
 
             SelectedFilterItems = new ObservableCollection<FilterItem>();
             ClassSuggestions = new ObservableCollection<ClassSuggestion>();
@@ -75,10 +77,14 @@ namespace MM7ClassCreatorWPF
         {
             SelectedFilterItems.Add(new FilterItem
             {
+                IsFirstElementInList = false,
                 Skill = CharacterSkill.MagicAir,
                 Mastery = MasteryLevel.None,
-                NumberOfCharacters = NumberOfCharacters.AtLeast1
+                NumberOfCharacters = NumberOfCharacters.AtLeast1,
+                AndOr = AndOr.And
             });
+            if (SelectedFilterItems.Count() == 1)
+                SelectedFilterItems[0].IsFirstElementInList = true;
         }
 
         private void OnRemoveFilter(object sender)
@@ -89,6 +95,7 @@ namespace MM7ClassCreatorWPF
         private void OnGenerateClasses()
         {
             ClassSuggestions = new ObservableCollection<ClassSuggestion>(_classSuggestionGenerator.SuggestClasses(SelectedFilterItems));
+            //ClassSuggestions[0].IsFirstElementInList = true;
         }
     }
 }

@@ -10,6 +10,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <conv:EnumToDescriptionConverter x:Key="EnumToDescriptionConverter" />
+            <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" True="Hidden" False="Visible" />
         </ResourceDictionary>
     </Window.Resources>
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
@@ -43,6 +44,10 @@
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,5">
                             <Button Content="Remove" Command="{Binding DataContext.RemoveFilterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"  CommandParameter="{Binding Path=.}" Margin="0,0,10,0" Width="50" ></Button>
 
+                            <CheckBox Margin="0,0,5,0" Width="20" />
+
+                            <ComboBox ItemsSource="{Binding DataContext.AllAndOr, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" SelectedItem="{Binding AndOr}" Margin="0,0,5,0" Width="60" Visibility="{Binding IsFirstElementInList, Converter={StaticResource BoolToVisibilityConverter}}" />
+
                             <ComboBox ItemsSource="{Binding DataContext.AllNumberOfCharacters, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" SelectedItem="{Binding NumberOfCharacters}" Margin="0,0,5,0" Width="90" >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
@@ -75,13 +80,13 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding ClassSuggestions[0]}" />
+                            <TextBlock Text="{Binding CharacterClasses[0]}" />
                             <TextBlock Text=", " />
-                            <TextBlock Text="{Binding ClassSuggestions[1]}" />
+                            <TextBlock Text="{Binding CharacterClasses[1]}" />
                             <TextBlock Text=", " />
-                            <TextBlock Text="{Binding ClassSuggestions[2]}" />
+                            <TextBlock Text="{Binding CharacterClasses[2]}" />
                             <TextBlock Text=", " />
-                            <TextBlock Text="{Binding ClassSuggestions[3]}" />
+                            <TextBlock Text="{Binding CharacterClasses[3]}" />
                         </StackPanel>                        
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
