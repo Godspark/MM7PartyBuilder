@@ -3,7 +3,6 @@ using MM7ClassCreatorWPF.BaseClasses;
 using System.Collections.ObjectModel;
 using System.Linq;
 using MM7ClassCreatorWPF.Models;
-using System.Collections.Generic;
 
 namespace MM7ClassCreatorWPF
 {
@@ -95,7 +94,6 @@ namespace MM7ClassCreatorWPF
         private void OnGenerateClasses()
         {
             ClassSuggestions = new ObservableCollection<ClassSuggestion>(_classSuggestionGenerator.SuggestClasses(SelectedFilterItems));
-            //ClassSuggestions[0].IsFirstElementInList = true;
         }
     }
 }

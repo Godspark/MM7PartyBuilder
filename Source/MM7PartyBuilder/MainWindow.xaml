@@ -31,21 +31,28 @@
             </StackPanel>
 
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Grid.Row="1" Grid.ColumnSpan="2" Margin="0,0,0,10">
-                <TextBlock Text="Filter Type" Margin="70,0,0,0" Width="90" />
+                <TextBlock Text="Group" Margin="36,0,0,0" Width="40" />
+                <TextBlock Text="And/Or" Margin="0,0,0,0" Width="60" />
+                <TextBlock Text="Filter Type" Margin="5,0,0,0" Width="90" />
                 <TextBlock Text="Min. Skill Mastery" Margin="5,0,0,0" Width="100" />
                 <TextBlock Text="Skill Name" Margin="5,0,0,0" Width="130" />
-                <TextBlock Text="Party Suggestions" Margin="100,0,0,0" Width="100" />
+                <TextBlock Text="Party Suggestions" Margin="29,0,0,0" Width="100" />
             </StackPanel>
             
             
             <ItemsControl ItemsSource="{Binding SelectedFilterItems}" Grid.Row="2">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,5">
-                            <Button Content="Remove" Command="{Binding DataContext.RemoveFilterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"  CommandParameter="{Binding Path=.}" Margin="0,0,10,0" Width="50" ></Button>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,5" >
+                            
+                            <Button Command="{Binding DataContext.RemoveFilterCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"  CommandParameter="{Binding Path=.}" Margin="0,0,10,0" Visibility="{Binding IsFirstElementInList, Converter={StaticResource BoolToVisibilityConverter}}" Background="White" BorderThickness="0" Width="16" >
+                                <Image Source="Images/DeleteRed.png" Height="16" Width="16" />
+                            </Button>
 
-                            <CheckBox Margin="0,0,5,0" Width="20" />
-
+                            <StackPanel Width="35" VerticalAlignment="Center" Margin="0,0,5,0" >
+                                <CheckBox HorizontalAlignment="Center"  />
+                            </StackPanel>
+                            
                             <ComboBox ItemsSource="{Binding DataContext.AllAndOr, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" SelectedItem="{Binding AndOr}" Margin="0,0,5,0" Width="60" Visibility="{Binding IsFirstElementInList, Converter={StaticResource BoolToVisibilityConverter}}" />
 
                             <ComboBox ItemsSource="{Binding DataContext.AllNumberOfCharacters, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}" SelectedItem="{Binding NumberOfCharacters}" Margin="0,0,5,0" Width="90" >
