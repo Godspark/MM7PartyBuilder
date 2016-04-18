@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace MM7ClassCreatorWPF.Models
 {
-    public enum NumberOfCharacters
+    public enum NumericFilter
     {
         [Description("None")]
         None,

@@ -5,7 +5,7 @@
         public bool IsFirstElementInList { get; set; }
         public CharacterSkill Skill { get; set; }
         public MasteryLevel Mastery { get; set; }
-        public NumberOfCharacters NumberOfCharacters { get; set; }
+        public NumericFilter NumericFilter { get; set; }
         public AndOr AndOr { get; set; }
     }
 }

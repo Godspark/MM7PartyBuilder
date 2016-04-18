@@ -65,7 +65,8 @@
     <Compile Include="MainViewModel.cs" />
     <Compile Include="Models\CharacterSkill.cs" />
     <Compile Include="BaseClasses\PropertyChangedBase.cs" />
-    <Compile Include="Models\NumberOfCharacters.cs" />
+    <Compile Include="Models\FilterGroup.cs" />
+    <Compile Include="Models\NumericFilter.cs" />
     <Compile Include="Models\SkillClassKey.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

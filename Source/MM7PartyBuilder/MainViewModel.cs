@@ -12,7 +12,7 @@ namespace MM7ClassCreatorWPF
         public ObservableCollection<CharacterClass> AllClasses { get; set; }
         public ObservableCollection<MasteryLevel> AllMasteryLevels { get; set; }
         public ObservableCollection<CharacterSkill> AllSkills { get; set; }
-        public ObservableCollection<NumberOfCharacters> AllNumberOfCharacters { get; set; }
+        public ObservableCollection<NumericFilter> AllNumericFilters { get; set; }
         public ObservableCollection<AndOr> AllAndOr { get; set; }
 
         private ObservableCollection<FilterItem> _selectedFilterItems;
@@ -60,7 +60,7 @@ namespace MM7ClassCreatorWPF
             AllClasses = new ObservableCollection<CharacterClass>(Enum.GetValues(typeof(CharacterClass)).Cast<CharacterClass>());
             AllMasteryLevels = new ObservableCollection<MasteryLevel>(Enum.GetValues(typeof(MasteryLevel)).Cast<MasteryLevel>());
             AllSkills = new ObservableCollection<CharacterSkill>(Enum.GetValues(typeof(CharacterSkill)).Cast<CharacterSkill>());
-            AllNumberOfCharacters = new ObservableCollection<NumberOfCharacters>(Enum.GetValues(typeof(NumberOfCharacters)).Cast<NumberOfCharacters>());
+            AllNumericFilters = new ObservableCollection<NumericFilter>(Enum.GetValues(typeof(NumericFilter)).Cast<NumericFilter>());
             AllAndOr = new ObservableCollection<AndOr>(Enum.GetValues(typeof(AndOr)).Cast<AndOr>());
 
             SelectedFilterItems = new ObservableCollection<FilterItem>();
@@ -79,11 +79,14 @@ namespace MM7ClassCreatorWPF
                 IsFirstElementInList = false,
                 Skill = CharacterSkill.MagicAir,
                 Mastery = MasteryLevel.None,
-                NumberOfCharacters = NumberOfCharacters.AtLeast1,
+                NumericFilter = NumericFilter.AtLeast1,
                 AndOr = AndOr.And
             });
             if (SelectedFilterItems.Count() == 1)
+            {
                 SelectedFilterItems[0].IsFirstElementInList = true;
+                SelectedFilterItems[0].AndOr = AndOr.Or;
+            }
         }
 
         private void OnRemoveFilter(object sender)

@@ -16,50 +16,58 @@ namespace MM7ClassCreatorWPF
 
         public List<ClassSuggestion> SuggestClasses(IEnumerable<FilterItem> searchFilters)
         {
-            var allSuggestions = GetAllSuggestions();
-            var resultingClassSuggestions = GetAllSuggestions();
-            foreach (var filter in searchFilters.Where(p => p.AndOr == AndOr.And))
+            var filterGroups = new List<FilterGroup>();
+            foreach (var filter in searchFilters)
             {
-                var classesNeeded = ClassesMeetFilter(filter);
-                resultingClassSuggestions = FindSuggestions(resultingClassSuggestions, filter.NumberOfCharacters, classesNeeded);
+                if (filter.AndOr == AndOr.Or)
+                {
+                    filterGroups.Add(new FilterGroup { ClassSuggestions = GetAllSuggestions() });                    
+                }
+                filterGroups[filterGroups.Count - 1].FilterItems.Add(filter);
             }
-            foreach (var filter in searchFilters.Where(p => p.AndOr == AndOr.Or))
+
+            var resultingClassSuggestions = new List<ClassSuggestion>();
+            foreach (var filterGroup in filterGroups)
             {
-                var classesNeeded = ClassesMeetFilter(filter);
-                resultingClassSuggestions.AddRange(FindSuggestions(allSuggestions, filter.NumberOfCharacters, classesNeeded));
-                resultingClassSuggestions = resultingClassSuggestions.Distinct().ToList();
+                foreach (var filterItem in filterGroup.FilterItems)
+                {
+                    var classesNeeded = ClassesMeetFilter(filterItem);
+                    filterGroup.ClassSuggestions = FindSuggestions(filterGroup.ClassSuggestions, filterItem.NumericFilter, classesNeeded);
+                }
+                resultingClassSuggestions.AddRange(filterGroup.ClassSuggestions);
             }
+            resultingClassSuggestions = resultingClassSuggestions.Distinct().ToList();
 
             return resultingClassSuggestions;
         }
 
-        private List<ClassSuggestion> FindSuggestions(List<ClassSuggestion> possibleSuggestions, NumberOfCharacters numberOfCharacters, List<CharacterClass> classesNeeded)
+        private List<ClassSuggestion> FindSuggestions(List<ClassSuggestion> possibleSuggestions, NumericFilter numberOfCharacters, List<CharacterClass> classesNeeded)
         {
             List<ClassSuggestion> suggestions;
             switch (numberOfCharacters)
             {
-                case NumberOfCharacters.None:
+                case NumericFilter.None:
                     suggestions = possibleSuggestions.Where(p => !p.CharacterClasses.Any(q => classesNeeded.Contains(q))).ToList();
                     break;
-                case NumberOfCharacters.AtLeast1:
+                case NumericFilter.AtLeast1:
                     suggestions = possibleSuggestions.Where(p => p.CharacterClasses.Any(q => classesNeeded.Contains(q))).ToList();
                     break;
-                case NumberOfCharacters.AtLeast2:
+                case NumericFilter.AtLeast2:
                     suggestions = possibleSuggestions.Where(p => p.CharacterClasses.Count(q => classesNeeded.Contains(q)) >= 2).ToList();
                     break;
-                case NumberOfCharacters.AtLeast3:
+                case NumericFilter.AtLeast3:
                     suggestions = possibleSuggestions.Where(p => p.CharacterClasses.Count(q => classesNeeded.Contains(q)) >= 3).ToList();
                     break;
-                case NumberOfCharacters.Exactly1:
+                case NumericFilter.Exactly1:
                     suggestions = possibleSuggestions.Where(p => p.CharacterClasses.Count(q => classesNeeded.Contains(q)) == 1).ToList();
                     break;
-                case NumberOfCharacters.Exactly2:
+                case NumericFilter.Exactly2:
                     suggestions = possibleSuggestions.Where(p => p.CharacterClasses.Count(q => classesNeeded.Contains(q)) == 2).ToList();
                     break;
-                case NumberOfCharacters.Exactly3:
+                case NumericFilter.Exactly3:
                     suggestions = possibleSuggestions.Where(p => p.CharacterClasses.Count(q => classesNeeded.Contains(q)) == 3).ToList();
                     break;
-                case NumberOfCharacters.All:
+                case NumericFilter.All:
                     suggestions = possibleSuggestions.Where(p => p.CharacterClasses.All(q => classesNeeded.Contains(q))).ToList();
                     break;
                 default:

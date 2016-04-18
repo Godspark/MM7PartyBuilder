@@ -11,12 +11,13 @@ The program will list the following two party combinations, (the only combinatio
 - Knight, Cleric, Druid, Sorcerer
 - Archer, Cleric, Druid, Sorcerer
 
-Changelog since start
+
+Changelog:
 - Added the following numbering filters: None, At least (1,2,3), Exactly (1,2,3), All
+- And/Or functionality, grouped by sequences of "or".
 
 
 
 Upcoming features:
-- The ability to set individual classes as requirements (e.g. In this party I want at least one Knight).
-- The ability to set groups of classes as requirements (e.g. In this party I want at least one Knight OR one Paladin)
-- The ability to set groups of skills and mastery as requirements (e.g. In this party I want at least one member with Sword(Master), Mace(Grandmaster) or Axe(Master)
+- The ability to set classes as requirements (e.g. In this party I want at least one Knight).
+- Distinction between Dark and Light side choice (mainly for Monk).
